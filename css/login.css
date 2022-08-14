@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(245, 245, 245);
+    /* display: flex;
+    flex-wrap: wrap; */
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    padding: 2%;
+    color:rgb(71, 153, 192);
+}
+
+.boton-submit {
+    background-color: rgb(71, 153, 192);
+}
+
