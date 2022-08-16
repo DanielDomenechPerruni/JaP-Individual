@@ -15,16 +15,16 @@
 <body>
   <main class="main">
     <div class="container">
-      <form>
+      <form id="mi-formulario" action="index.html">
         <img class="img" src="img\login.png">
         <h1 class="titulo">Inicio de sesión</h1>   
         <div class="entrada-de-datos">
-          <input type="email" class="form-control" id="floatingInput" placeholder="Email">
-          <label for="floatingInput"></label>
+          <input type="email" name="email" class="form-control form-error" id="floating-email" placeholder="Email" required>
+          <label for="floating-email"></label>
         </div>
         <div class="entrada-de-datos">
-          <input type="contraseña" class="form-control" id="floating-contraseña" placeholder="contraseña">
-          <label for="floating-contraseña"></label>
+          <input type="contrasenia" name="contrasenia" class="form-control" id="floating-contrasenia" placeholder="contraseña" required>
+          <label for="floating-contrasenia"></label>
         </div>
         <button class="boton-submit" type="submit">Ingresar</button>
       </form>   

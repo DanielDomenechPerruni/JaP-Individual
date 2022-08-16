@@ -11,4 +11,36 @@ document.addEventListener("DOMContentLoaded", function(){
         localStorage.setItem("catID", 103);
         window.location = "products.html"
     });
+
+    // function goToReplace () {
+    //     let link = "login.html";
+    //     window.location.replace(link);
+    //   }
+      
+    // let userParams = new URLSearchParams(window.location.search)
+    // let email = userParams.get("email");
+    // let contrasenia = userParams.get("contrasenia");
+    
+    // // console.log(email);
+    // // console.log(contrasenia);
+    
+    // if (email == null || contrasenia == null) {
+    //     goToReplace()
+    // }
 });
+
+function goToReplace () {
+    let link = "login.html";
+    window.location.replace(link);
+  }
+  
+let userParams = new URLSearchParams(window.location.search)
+let email = userParams.get("email");
+let contrasenia = userParams.get("contrasenia");
+
+// console.log(email);
+// console.log(contrasenia);
+
+if (email == null || contrasenia == null) {
+    goToReplace()
+}
