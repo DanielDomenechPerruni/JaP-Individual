@@ -1,4 +1,5 @@
-const URLProductos = "https://japceibal.github.io/emercado-api/cats_products/101.json"
+let item = localStorage.getItem("catID");
+const URLProductos = `https://japceibal.github.io/emercado-api/cats_products/${item}.json`;
 
 function insertarProductos(productos) {
     let html = "";
