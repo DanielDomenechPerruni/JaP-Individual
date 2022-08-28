@@ -29,6 +29,12 @@ document.addEventListener("DOMContentLoaded", function(){
     // }
 });
 
+function insertarUserName(userName) {
+    let html = "";
+    html += `<h4 class="nav-link" id="h4UserName">${userName}</h4>`;
+    document.getElementById("userName").innerHTML = html;
+}
+
 function goToReplace () {
     let link = "login.html";
     window.location.replace(link);
@@ -43,4 +49,11 @@ let contrasenia = userParams.get("contrasenia");
 
 if (email == null || contrasenia == null) {
     goToReplace()
+} else {
+    localStorage.setItem('email', email);
+    let emailUserName = localStorage.getItem('email');
+    insertarUserName(emailUserName);
 }
+
+
+
