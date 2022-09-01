@@ -18,7 +18,3 @@
 //     evento.preventDefault();
 //     validacion();
 // });
-// let emailUserName = localStorage.getItem('email');
-// let contraseniaUser = localStorage.getItem('contrasenia');
-// console.log(emailUserName);
-// console.log(contraseniaUser);

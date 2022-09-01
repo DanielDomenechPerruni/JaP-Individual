@@ -69,19 +69,11 @@ function insertarProductos(productos) {
 }
 
 function sortAndShowProducts(sortCriteria, productsArray){
-    //let currentSortCriteria = sortCriteria;
-    //let currentProductsArray = [];
-    //console.log(productsArray);
+
     if(productsArray != undefined){
-        //currentProductsArray = productsArray;
         let currentProductsArray = sortProductos(sortCriteria, productsArray);
         insertarProductos(currentProductsArray);
     }
-
-    //currentProductsArray = sortProductos(currentSortCriteria, currentProductsArray);
-
-    //Muestro las categorías ordenadas
-    //insertarProductos(currentProductsArray);
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
@@ -117,8 +109,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     });
 
     document.getElementById("rangeFilterPrice").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-        //de productos por categoría.
+
         minPrice = document.getElementById("rangeFilterMinPrice").value;
         maxPrice = document.getElementById("rangeFilterMaxPrice").value;
 
