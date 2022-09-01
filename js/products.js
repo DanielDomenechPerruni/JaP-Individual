@@ -6,8 +6,8 @@ const ORDER_DESC_BY_PRICE = "$DOWN";
 const ORDER_BY_PROD_REL = "Rel.";
 let productsArray = [];
 let currentSortCriteria = undefined;
-let minCount = undefined;
-let maxCount = undefined;
+let minPrice = undefined;
+let maxPrice = undefined;
 
 function sortProductos(criteria, array){
     let result = [];
@@ -41,24 +41,29 @@ function sortProductos(criteria, array){
 function insertarProductos(productos) {
     let html = "";
     productos.forEach(producto => {
-        html += `
-        <div class="list-group-item list-group-item-action">
-            <div class="row">
-                <div class="col-3">
-                    <img src="${producto.image}" alt="product image" class="img-thumbnail">
-                </div>
-                <div class="col">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div class="mb-1">
-                        <h4>${producto.name} - ${producto.currency} ${producto.cost}</h4> 
-                        <p>${producto.description}</p> 
+        
+        if (((minPrice == undefined) || (minPrice != undefined && parseInt(producto.cost) >= minPrice)) &&
+            ((maxPrice == undefined) || (maxPrice != undefined && parseInt(producto.cost) <= maxPrice))) {
+            
+            html += `
+            <div class="list-group-item list-group-item-action">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="${producto.image}" alt="product image" class="img-thumbnail">
+                    </div>
+                    <div class="col">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="mb-1">
+                            <h4>${producto.name} - ${producto.currency} ${producto.cost}</h4> 
+                            <p>${producto.description}</p> 
+                            </div>
+                            <small class="text-muted">${producto.soldCount} artículos</small> 
                         </div>
-                        <small class="text-muted">${producto.soldCount} artículos</small> 
                     </div>
                 </div>
             </div>
-        </div>
-        `
+            `
+        }
     });
     document.getElementById("lista-de-productos").innerHTML = html;
 }
@@ -99,6 +104,39 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     document.getElementById("sortByRelevance").addEventListener("click", function(){
         sortAndShowProducts(ORDER_BY_PROD_REL, productsArray);
+    });
+
+    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+        document.getElementById("rangeFilterMinPrice").value = "";
+        document.getElementById("rangeFilterMaxPrice").value = "";
+
+        minPrice = undefined;
+        maxPrice = undefined;
+
+        insertarProductos(productsArray);
+    });
+
+    document.getElementById("rangeFilterPrice").addEventListener("click", function(){
+        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
+        //de productos por categoría.
+        minPrice = document.getElementById("rangeFilterMinPrice").value;
+        maxPrice = document.getElementById("rangeFilterMaxPrice").value;
+
+        if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0){
+            minPrice = parseInt(minPrice);
+        }
+        else{
+            minPrice = undefined;
+        }
+
+        if ((maxPrice != undefined) && (maxPrice != "") && (parseInt(maxPrice)) >= 0){
+            maxPrice = parseInt(maxPrice);
+        }
+        else{
+            maxPrice = undefined;
+        }
+
+        insertarProductos(productsArray);
     });
     
 });
