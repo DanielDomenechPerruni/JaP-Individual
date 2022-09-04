@@ -1,20 +1,49 @@
-// function goToHerf () {
-//     let link = "index.html";
-//     window.location.href(link);
-//   }
+const formulario = document.getElementById("mi-formulario");
+const email1 = document.getElementById("floating-email");
+const pass1 = document.getElementById("floating-contrasenia");
 
-// const formulario = document.getElementById("mi-formulario")
+function showAlertError() {
+    document.getElementById("alert-danger").classList.add("show");
+}
 
-// function validacion () {
-//     let email = document.getElementById("floating-email").value;
-//     let contrasenia = document.getElementById("floating-contrasenia").value;
-    
-//     ¡¡aca van todas las validaciones que yo quiera!!
+function goTo() {
+    let link = "index.html";
+    window.location.replace(link);
+}
 
-//     formulario.submit();
-// }
+function passwordValidation (pass1) {
+    if(pass1.value.length >= 5) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-// formulario.addEventListener('submit', function(evento) {
-//     evento.preventDefault();
-//     validacion();
-// });
+function emailValidation (email) {
+    var expReg= /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/; 
+    var esValido = expReg.test(email.value); 
+    if(esValido) { 
+        return true; 
+    } else { 
+        return false; 
+    } 
+}
+
+function validation (pass1, email) {
+    if (passwordValidation(pass1) && emailValidation(email)) {
+        return true
+    } else {
+        return false
+    }
+}
+
+formulario.addEventListener('submit', function(evento) {
+    evento.preventDefault();
+    if (validation(pass1, email1)) {
+        localStorage.setItem('email', email1.value);
+        localStorage.setItem('contrasenia', pass1.value);
+        goTo();
+    } else {
+        showAlertError();
+    };
+});

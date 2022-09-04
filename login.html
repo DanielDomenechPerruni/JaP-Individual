@@ -15,11 +15,11 @@
 <body>
   <main class="main">
     <div class="container">
-      <form id="mi-formulario" action="index.html">
+      <form id="mi-formulario">
         <img class="img" src="img\login.png">
         <h1 class="titulo">Inicio de sesión</h1>   
         <div class="entrada-de-datos">
-          <input type="email" name="email" class="form-control form-error" id="floating-email" placeholder="Email" required>
+          <input name="email" class="form-control form-error" id="floating-email" placeholder="Email" required>
           <label for="floating-email"></label>
         </div>
         <div class="entrada-de-datos">
@@ -40,6 +40,10 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
+    <p>Los datos ingresados no cumplen con los requisitos solicitados</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <script src="js/login.js"></script>
 </body>
 

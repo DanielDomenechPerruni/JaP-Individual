@@ -24,20 +24,9 @@ function goToReplace () {
     let link = "login.html";
     window.location.replace(link);
   }
-  
-let userParams = new URLSearchParams(window.location.search)
-let email = userParams.get("email");
-let contrasenia = userParams.get("contrasenia");
 
-if ((email == null || contrasenia == null) && (localStorage.getItem('email') === "null" || localStorage.getItem('contrasenia') === "null")) {
-    goToReplace()
-} else if (localStorage.getItem('email') === "null" || localStorage.getItem('contrasenia') === "null"){
-    localStorage.setItem('email', email);
-    localStorage.setItem('contrasenia', contrasenia);
-    insertarUserName(email ?? localStorage.getItem('email'));
+if (localStorage.getItem('email') === null || localStorage.getItem('contrasenia') === null) {
+    goToReplace();
 } else {
-    insertarUserName(email ?? localStorage.getItem('email'));
+    insertarUserName(localStorage.getItem('email'));
 }
-
-
-
