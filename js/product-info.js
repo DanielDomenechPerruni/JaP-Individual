@@ -1,8 +1,22 @@
 let item = localStorage.getItem("productId");
 const URLProducto = `https://japceibal.github.io/emercado-api/products/${item}.json`;
 const URLComentarios = `https://japceibal.github.io/emercado-api/products_comments/${item}.json`;
+let comentariosIngresados = "";
+// const setNuevosComentarios = localStorage.setItem(`comentariosNuevos${item}`, comentariosIngresados);
+// const getNuevosComentarios = localStorage.getItem(`comentariosNuevos${item}`);
 let producto = {};
 let comentario = [];
+let opinion = document.getElementById("opinion");
+let tu_opinion = "";
+let score = "";
+
+if (localStorage.getItem(`comentariosNuevos${item}`) == null) {
+    comentariosIngresados = "";
+} else {
+    comentariosIngresados = localStorage.getItem(`comentariosNuevos${item}`);
+
+};
+
 
 function insertarImagenes () {
     html = "";
@@ -32,8 +46,8 @@ function insertarEstrellas (estrellas){
 }
 
 function insertarComentarios () {
-    html = "";
-    comentario.forEach(element => {
+    let html = "";
+    comentario.forEach(element => {       
         html += `
         <div class="list-group-item list-group-item-action">
             <div class="d-flex w-100 justify-content-between">
@@ -50,7 +64,50 @@ function insertarComentarios () {
         `
     })
 
+    if (localStorage.getItem(`comentariosNuevos${item}`) !== null) {
+        html += localStorage.getItem(`comentariosNuevos${item}`);
+    }
     document.getElementById("comentarios").innerHTML = html;
+    console.log(localStorage.getItem(`comentariosNuevos${item}`));
+}
+
+function GuardarComentariosNuevos () {
+    if (localStorage.getItem(`comentariosNuevos${item}`) !== null) {
+        comentariosIngresados = localStorage.getItem(`comentariosNuevos${item}`);
+        console.log("hola");
+        comentariosIngresados += `
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="d-flex w-50 justify-content-between">
+                        <h4>${localStorage.getItem("email")}</h4>
+                        <p></p>
+                    </div>
+                    <div>
+                        ${insertarEstrellas(score)}
+                    </div>
+                </div>
+                <p>${tu_opinion}</p>
+            </div>
+            `;
+        localStorage.setItem(`comentariosNuevos${item}`, comentariosIngresados);
+    } else {
+        comentariosIngresados = ""
+        comentariosIngresados += `
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <div class="d-flex w-50 justify-content-between">
+                        <h4>${localStorage.getItem("email")}</h4>
+                        <p></p>
+                    </div>
+                    <div>
+                        ${insertarEstrellas(score)}
+                    </div>
+                </div>
+                <p>${tu_opinion}</p>
+            </div>
+            `
+        localStorage.setItem(`comentariosNuevos${item}`, comentariosIngresados);
+    }
 }
 
 function insertarDatosDelProducto () {
@@ -73,7 +130,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
             if (resultObj.status === "ok") {
                 comentario = resultObj.data;
                 insertarComentarios();
+                
         }}));
-    
-});
 
+    opinion.addEventListener("submit", evento => {
+        evento.preventDefault()
+        if (tu_opinion.length >= 0) {
+            score = document.getElementById("score").value;
+            tu_opinion = document.getElementById("tu-opinion").value;
+            GuardarComentariosNuevos();
+            insertarComentarios();
+        }
+    })
+})
