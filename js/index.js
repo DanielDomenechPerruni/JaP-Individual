@@ -15,9 +15,8 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 function insertarUserName(userName) {
-    let html = "";
-    html += `<h4 class="nav-link" id="h4UserName">${userName}</h4>`;
-    document.getElementById("userName").innerHTML = html;
+    let html = `${userName}`;
+    document.getElementById("dropdownMenuButton1").innerHTML = html;
 }
 
 function goToReplace () {
@@ -25,8 +24,18 @@ function goToReplace () {
     window.location.replace(link);
   }
 
+function closeSesion () {
+    document.getElementById("cerrarSesion").addEventListener("click", function() {
+        localStorage.removeItem('email');
+        goToReplace();
+    })
+    
+}
+
 if (localStorage.getItem('email') === null || localStorage.getItem('contrasenia') === null) {
     goToReplace();
 } else {
     insertarUserName(localStorage.getItem('email'));
+    closeSesion();
 }
+
