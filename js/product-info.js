@@ -68,7 +68,6 @@ function insertarComentarios () {
         html += localStorage.getItem(`comentariosNuevos${item}`);
     }
     document.getElementById("comentarios").innerHTML = html;
-    console.log(localStorage.getItem(`comentariosNuevos${item}`));
 }
 
 function GuardarComentariosNuevos () {
@@ -109,6 +108,64 @@ function GuardarComentariosNuevos () {
         localStorage.setItem(`comentariosNuevos${item}`, comentariosIngresados);
     }
 }
+//alt = product image
+function insertarProductosRelacionados() {
+    let productosRelacionados = "";
+    let botonesDelCarrusel ="";
+    let contador = 0;
+    producto.relatedProducts.forEach(element => {
+        if (productosRelacionados == "") {
+            productosRelacionados += `
+                <div class="redireccion carousel-item active" id="${element.id}">
+                    <img src="${element.image}" alt="" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>${element.name}</h5>
+                        <p></p>
+                    </div>
+                </div>
+            `
+        } else {
+            productosRelacionados += `
+                <div class="redireccion carousel-item" id="${element.id}">
+                    <img src="${element.image}" alt="" class="d-block w-100">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>${element.name}</h5>
+                        <p></p>
+                    </div>
+                </div>
+            `
+        };
+
+        if (botonesDelCarrusel == "") {
+            botonesDelCarrusel += `
+                <button type="button" data-bs-target="#divProductosRelacionados" data-bs-slide-to="${contador}" class="active" aria-current="true" aria-label="Slide ${contador + 1}"></button>
+            `
+            contador += 1;
+        } else {
+            botonesDelCarrusel +=`
+                <button type="button" data-bs-target="#divProductosRelacionados" data-bs-slide-to="${contador}" aria-label="Slide ${contador + 1}"></button>
+            `
+            contador += 1;
+        }
+    });
+    document.getElementById("productos_relacionados").innerHTML = productosRelacionados;
+    document.getElementById("opcionesCarrusel").innerHTML = botonesDelCarrusel;
+}
+
+function irALaPaginalDelProducto() {
+    let elementos = document.getElementsByClassName("redireccion");
+    for (let elemento of elementos) {
+        elemento.addEventListener("click", function () {
+            localStorage.setItem("productId", elemento.id)
+            goToProductosInfo();
+        })
+    }
+}
+
+function goToProductosInfo() {
+    ;
+    window.location = "product-info.html";
+}
 
 function insertarDatosDelProducto () {
     document.getElementById("nombre").innerHTML = `${producto.name}`;
@@ -124,6 +181,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
         if (resultObj.status === "ok") {
             producto = resultObj.data;
             insertarDatosDelProducto();
+            insertarProductosRelacionados()
+            irALaPaginalDelProducto()
     }}).then(
         getJSONData(URLComentarios).then(function (resultObj) {
 
@@ -131,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 comentario = resultObj.data;
                 insertarComentarios();
                 
-        }}));
+        }}))
 
     opinion.addEventListener("submit", evento => {
         evento.preventDefault()
