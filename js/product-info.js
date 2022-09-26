@@ -188,8 +188,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
             if (resultObj.status === "ok") {
                 comentario = resultObj.data;
-                insertarComentarios();
-                
+                insertarComentarios();                
         }}))
 
     opinion.addEventListener("submit", evento => {

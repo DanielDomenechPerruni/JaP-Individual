@@ -144,6 +144,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
         insertarProductos(productsArray);
     });
 
+    document.getElementById("barraDeBusqueda").addEventListener(type = "keyup", function (e) {
+        for (let elementos of document.getElementsByClassName("list-group-item")) {
+            elementos.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+            ?elementos.classList.remove("filtro")
+            :elementos.classList.add("filtro")
+        }  
+    })
+
 
 
 });
