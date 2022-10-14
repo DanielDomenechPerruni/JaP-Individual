@@ -192,3 +192,7 @@ a.custom-card:hover {
 .filtro {
   display: none;
 }
+
+.boton-comprar {
+  background-color: rgb(71, 153, 192);
+}

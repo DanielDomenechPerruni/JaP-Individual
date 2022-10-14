@@ -175,20 +175,43 @@ function insertarDatosDelProducto () {
     insertarImagenes();
 }
 
+function agregarAlCarrito () {
+    let botonComprar = document.getElementById("botonDeCompra");
+    botonComprar.addEventListener("click", e => {
+        let productoAAgregar = {
+            "id": producto.id,
+            "name": `${producto.name}`,
+            "count": 1,
+            "unitCost": producto.cost,
+            "currency": `${producto.currency}`,
+            "image": `${producto.images[0]}`
+        }
+        let contador = 1;
+        while (localStorage.getItem(`productoDelCarrito${contador}`) !== null) {
+          contador += 1;
+        }
+        localStorage.setItem(`productoDelCarrito${contador}`, JSON.stringify(productoAAgregar));
+        console.log(JSON.stringify(productoAAgregar));
+    })
+  }
+  
+
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(URLProducto).then(function (resultObj) {
 
         if (resultObj.status === "ok") {
             producto = resultObj.data;
             insertarDatosDelProducto();
-            insertarProductosRelacionados()
-            irALaPaginalDelProducto()
+            insertarProductosRelacionados();
+            irALaPaginalDelProducto();
+            
     }}).then(
         getJSONData(URLComentarios).then(function (resultObj) {
 
             if (resultObj.status === "ok") {
                 comentario = resultObj.data;
-                insertarComentarios();                
+                insertarComentarios();     
+                agregarAlCarrito ();           
         }}))
 
     opinion.addEventListener("submit", evento => {
