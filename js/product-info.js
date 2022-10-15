@@ -186,12 +186,22 @@ function agregarAlCarrito () {
             "currency": `${producto.currency}`,
             "image": `${producto.images[0]}`
         }
+        let control = 0;
         let contador = 1;
         while (localStorage.getItem(`productoDelCarrito${contador}`) !== null) {
-          contador += 1;
+            if (JSON.parse(localStorage.getItem(`productoDelCarrito${contador}`)).id == producto.id) {
+                control = 1;
+                contador += 1;
+            } else {
+                contador += 1;
+            }
         }
-        localStorage.setItem(`productoDelCarrito${contador}`, JSON.stringify(productoAAgregar));
-        console.log(JSON.stringify(productoAAgregar));
+        if (control !== 1) {
+            localStorage.setItem(`productoDelCarrito${contador}`, JSON.stringify(productoAAgregar));
+            alert("El articulo fue añadido a su carrito");
+        } else {
+            alert("El artriculo ya se encuentra en su carrito");
+        }
     })
   }
   

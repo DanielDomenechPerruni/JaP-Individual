@@ -27,8 +27,7 @@ function mostrarCarrito() {
               <h6 class="mb-0">${producto.currency} ${producto.unitCost}</h6>
             </div>
             <div class="col-md-3 col-lg-3 col-xl-3 d-flex">
-              <button class="btn btn-link px-2"
-                >
+              <button class="btn btn-link px-2">
                 <i class="fas fa-minus boton" data-costo="${producto.unitCost}" data-id="${producto.id}" data-currency="${producto.currency}"
                 onclick="document.querySelector('input#cantidad${producto.id}').stepDown()"></i>
               </button>
@@ -36,8 +35,7 @@ function mostrarCarrito() {
               <input id="cantidad${producto.id}" min="1" name="quantity" value="${producto.count}" type="number"
                 class="form-control form-control-sm" />
 
-              <button class="btn btn-link px-2"
-               >
+              <button class="btn btn-link px-2">
                 <i class="fas fa-plus boton" data-costo="${producto.unitCost}" data-id="${producto.id}" data-currency="${producto.currency}"
                 onclick="document.querySelector('input#cantidad${producto.id}').stepUp()"></i>
               </button>
@@ -46,7 +44,7 @@ function mostrarCarrito() {
               <h6 class="mb-0" id="subtotal${producto.id}">${producto.currency} ${producto.count * producto.unitCost}</h6>
             </div>
             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-              <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+              <a href="#!" class="text-muted"><i class="fas fa-times eliminador" data-id="${producto.id}"></i></a>
             </div>
           </div>
         `
@@ -86,6 +84,32 @@ function insertarTotal() {
   document.getElementById("total").innerHTML = `$ ${String(totalIngresado)}`;
 }
 
+function borrarArticulo() {
+  let eliminadores = document.getElementsByClassName("eliminador");
+  for (let eliminador of eliminadores) {
+    eliminador.addEventListener("click", (cruz) => {
+      let x = 0;
+      productosDelCarrito.forEach(producto => {
+        console.log(cruz.target.dataset.id);
+        if (producto.id == cruz.target.dataset.id) {
+          x = x;
+        } else if (x == 0) {
+          x += 1;
+        } else {
+          localStorage.setItem(`productoDelCarrito${x}`, JSON.stringify(producto));
+          x += 1;
+        }
+      })
+      localStorage.removeItem(`productoDelCarrito${x}`);
+      irAPagina("cart.html")
+    })
+  }
+}
+
+function irAPagina(URL) {
+  window.location = URL;
+}
+
 
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(URLProducto).then(function (resultObj) {
@@ -96,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
       mostrarCarrito();
       insertarTotal();
       botonesInteractuables();
+      borrarArticulo()
     } 
   })
   
