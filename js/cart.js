@@ -70,19 +70,33 @@ function botonesInteractuables() {
   };
 }
 
+function cambioDeEnvio() {
+  document.getElementById("tipo-envio").addEventListener("change", element => {
+    insertarTotal();
+  })
+}
+
 function insertarTotal() {
-  let totalIngresado = 0;
+  let subtotalGeneralIngresado = 0;
 
   productosDelCarrito.forEach(producto => {
     if (producto.currency = "USD") {
-      totalIngresado += localStorage.getItem(`subtotal${producto.id}`) * 40;
+      subtotalGeneralIngresado += parseInt(localStorage.getItem(`subtotal${producto.id}`));
     } else {
-      totalIngresado += localStorage.getItem(`subtotal${producto.id}`);
+      subtotalGeneralIngresado += parseInt(localStorage.getItem(`subtotal${producto.id}`)) / 40;
     }
   })
+  document.getElementById("subtotal-general").innerHTML = `USD ${String(subtotalGeneralIngresado)}`;
 
-  document.getElementById("total").innerHTML = `$ ${String(totalIngresado)}`;
+  let relacionDeEnvio = document.getElementById("tipo-envio").value;
+  let costoDeEnvio = subtotalGeneralIngresado * relacionDeEnvio;
+  document.getElementById("costo-de-envio").innerHTML = `USD ${String(costoDeEnvio)}`;
+
+  let costoTotal = subtotalGeneralIngresado + costoDeEnvio;
+  document.getElementById("precio-total").innerHTML = `USD ${String(costoTotal)}`;
 }
+
+
 
 function borrarArticulo() {
   let eliminadores = document.getElementsByClassName("eliminador");
@@ -120,7 +134,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
       mostrarCarrito();
       insertarTotal();
       botonesInteractuables();
-      borrarArticulo()
+      cambioDeEnvio();
+      borrarArticulo();
     } 
   })
   
