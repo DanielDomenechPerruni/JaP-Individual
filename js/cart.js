@@ -1,4 +1,6 @@
 const URLProducto = "https://japceibal.github.io/emercado-api/user_cart/25801.json";
+const forms = document.querySelectorAll('.needs-validation');
+const botonComprar = document.getElementById("boton-comprar");
 let productosDelCarrito = [];
 
 function añadirProductoAlCarrito() {
@@ -96,8 +98,6 @@ function insertarTotal() {
   document.getElementById("precio-total").innerHTML = `USD ${String(costoTotal)}`;
 }
 
-
-
 function borrarArticulo() {
   let eliminadores = document.getElementsByClassName("eliminador");
   for (let eliminador of eliminadores) {
@@ -124,6 +124,50 @@ function irAPagina(URL) {
   window.location = URL;
 }
 
+function validacionTarjeta() {
+  document.getElementById("tarjeta-de-credito").addEventListener("click", evento => {
+    let numeroDeCuenta = document.getElementById("numero-de-cuenta");
+    numeroDeCuenta.setAttribute("disabled", "");
+    let numeroDeTarjeta = document.getElementById("numero-de-tarjeta");
+    numeroDeTarjeta.removeAttribute("disabled");
+    let codigoDeSeguridad = document.getElementById("codigo-de-seguridad");
+    codigoDeSeguridad.removeAttribute("disabled");
+    let vencimiento = document.getElementById("vencimiento");
+    vencimiento.removeAttribute("disabled");
+  })
+}
+
+function validacionTransferencia() {
+  document.getElementById("transferencia-bancaria").addEventListener("click", evento => {
+    let numeroDeCuenta = document.getElementById("numero-de-cuenta");
+    numeroDeCuenta.removeAttribute("disabled");
+    let numeroDeTarjeta = document.getElementById("numero-de-tarjeta");
+    numeroDeTarjeta.setAttribute("disabled", "");
+    let codigoDeSeguridad = document.getElementById("codigo-de-seguridad");
+    codigoDeSeguridad.setAttribute("disabled", "");
+    let vencimiento = document.getElementById("vencimiento");
+    vencimiento.setAttribute("disabled", "");
+  })
+}
+
+function validacionMedioDePago() {
+  validacionTransferencia();
+  validacionTarjeta();
+}
+
+function validarFormulario() {
+  Array.from(forms).forEach(form => {
+    botonComprar.addEventListener('click', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+}
+
 
 document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(URLProducto).then(function (resultObj) {
@@ -136,7 +180,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
       botonesInteractuables();
       cambioDeEnvio();
       borrarArticulo();
-    } 
+      validacionMedioDePago();
+      validarFormulario();
+    }
   })
-  
+
 })
