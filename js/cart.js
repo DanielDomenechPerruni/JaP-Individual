@@ -128,12 +128,14 @@ function validacionTarjeta() {
   document.getElementById("tarjeta-de-credito").addEventListener("click", evento => {
     let numeroDeCuenta = document.getElementById("numero-de-cuenta");
     numeroDeCuenta.setAttribute("disabled", "");
+    numeroDeCuenta.value = "";
     let numeroDeTarjeta = document.getElementById("numero-de-tarjeta");
     numeroDeTarjeta.removeAttribute("disabled");
     let codigoDeSeguridad = document.getElementById("codigo-de-seguridad");
     codigoDeSeguridad.removeAttribute("disabled");
     let vencimiento = document.getElementById("vencimiento");
     vencimiento.removeAttribute("disabled");
+    document.getElementById("checkMP").checked = false;
   })
 }
 
@@ -143,30 +145,61 @@ function validacionTransferencia() {
     numeroDeCuenta.removeAttribute("disabled");
     let numeroDeTarjeta = document.getElementById("numero-de-tarjeta");
     numeroDeTarjeta.setAttribute("disabled", "");
+    numeroDeTarjeta.value = "";
     let codigoDeSeguridad = document.getElementById("codigo-de-seguridad");
     codigoDeSeguridad.setAttribute("disabled", "");
+    codigoDeSeguridad.value = "";
     let vencimiento = document.getElementById("vencimiento");
     vencimiento.setAttribute("disabled", "");
+    vencimiento.value = "";
+    document.getElementById("checkMP").checked = false;
+  })
+}
+
+function VerificarDatosMedioDePago() {
+  document.getElementById("checkMP").addEventListener("click", element => {
+    let TarjetaNum = document.getElementById("numero-de-tarjeta").value;
+    let TarjetaSeguridad = document.getElementById("codigo-de-seguridad").value;
+    let TarjetaVencimiento = document.getElementById("vencimiento").value;
+    let CuentaNumero = document.getElementById("numero-de-cuenta").value;
+    if (((TarjetaNum.length > 0) && (TarjetaSeguridad.length > 0) && (TarjetaVencimiento.length > 0)) || (CuentaNumero.length > 0)) {
+      document.getElementById("checkMP").checked = true;
+    } else {
+      document.getElementById("checkMP").checked = false;
+    }
   })
 }
 
 function validacionMedioDePago() {
   validacionTransferencia();
   validacionTarjeta();
+  VerificarDatosMedioDePago();
 }
 
 function validarFormulario() {
   Array.from(forms).forEach(form => {
     botonComprar.addEventListener('click', event => {
       if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
+        event.preventDefault();
+        event.stopPropagation();
+        showAlertError();
+      } else {
+        showAlertSucces();
       }
 
       form.classList.add('was-validated')
     }, false)
   })
 }
+
+function showAlertError() {
+  document.getElementById("alert-danger").classList.add("show");
+}
+
+function showAlertSucces() {
+  document.getElementById("alert-succes").classList.add("show");
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function (e) {

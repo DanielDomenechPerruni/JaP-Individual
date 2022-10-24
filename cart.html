@@ -161,15 +161,15 @@
                                       <div>
                                         <div>
                                           <h6 class="modal-title">Numero de tarjeta</h6>
-                                          <input type="text" id="numero-de-tarjeta">
+                                          <input type="text" id="numero-de-tarjeta" disabled>
                                         </div>
                                         <div>
                                           <h6 class="modal-title">Codigo de seguridad</h6>
-                                          <input type="text" id="codigo-de-seguridad">
+                                          <input type="text" id="codigo-de-seguridad" disabled>
                                         </div>
                                         <div>
                                           <h6 class="modal-title">Vencimiento</h6>
-                                          <input type="text" id="vencimiento">
+                                          <input type="text" id="vencimiento" disabled>
                                         </div>
                                       </div>
                                     </div>
@@ -180,7 +180,7 @@
                                         bancaria</label>
                                       <div>
                                         <h6 class="modal-title">Numero de cuenta</h6>
-                                        <input type="text" id="numero-de-cuenta">
+                                        <input type="text" id="numero-de-cuenta" disabled>
                                       </div>
                                     </div>
                                     <hr>
@@ -229,6 +229,14 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-success text-success alert-dismissible fade" role="alert" id="alert-succes">
+    <p>¡Has comprado con éxito!</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <div class="alert alert-danger text-danger alert-dismissible fade" role="alert" id="alert-danger">
+    <p>Los datos ingresados no cumplen con los requisitos solicitados</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
