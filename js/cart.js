@@ -1,6 +1,16 @@
 const URLProducto = "https://japceibal.github.io/emercado-api/user_cart/25801.json";
 const forms = document.querySelectorAll('.needs-validation');
+const form = document.getElementById('formulario-de-compra');
+const calle = document.getElementById("calle");
+const divLargoCalle = document.getElementById("largo-calle");
+const numeroDePuerta = document.getElementById("calle");
+const divLargoNumeroDePuerta = document.getElementById("largo-numero-de-puerta");
+const esquina = document.getElementById("calle");
+const divLargoEsquina = document.getElementById("largo-esquina");
+const botonMedioDePago = document.getElementById("boton-elegir-medios-de-pago");
+const checkboxMP = document.getElementById("checkMP");
 const botonComprar = document.getElementById("boton-comprar");
+
 let productosDelCarrito = [];
 
 function añadirProductoAlCarrito() {
@@ -82,20 +92,20 @@ function insertarTotal() {
   let subtotalGeneralIngresado = 0;
 
   productosDelCarrito.forEach(producto => {
-    if (producto.currency = "USD") {
+    if (producto.currency == "USD") {
       subtotalGeneralIngresado += parseInt(localStorage.getItem(`subtotal${producto.id}`));
     } else {
       subtotalGeneralIngresado += parseInt(localStorage.getItem(`subtotal${producto.id}`)) / 40;
     }
   })
-  document.getElementById("subtotal-general").innerHTML = `USD ${String(subtotalGeneralIngresado)}`;
+  document.getElementById("subtotal-general").innerHTML = `USD ${String(Math.round(subtotalGeneralIngresado))}`;
 
   let relacionDeEnvio = document.getElementById("tipo-envio").value;
   let costoDeEnvio = subtotalGeneralIngresado * relacionDeEnvio;
-  document.getElementById("costo-de-envio").innerHTML = `USD ${String(costoDeEnvio)}`;
+  document.getElementById("costo-de-envio").innerHTML = `USD ${String(Math.round(costoDeEnvio))}`;
 
   let costoTotal = subtotalGeneralIngresado + costoDeEnvio;
-  document.getElementById("precio-total").innerHTML = `USD ${String(costoTotal)}`;
+  document.getElementById("precio-total").innerHTML = `USD ${String(Math.round(costoTotal))}`;
 }
 
 function borrarArticulo() {
@@ -163,11 +173,102 @@ function VerificarDatosMedioDePago() {
     let TarjetaVencimiento = document.getElementById("vencimiento").value;
     let CuentaNumero = document.getElementById("numero-de-cuenta").value;
     if (((TarjetaNum.length > 0) && (TarjetaSeguridad.length > 0) && (TarjetaVencimiento.length > 0)) || (CuentaNumero.length > 0)) {
-      document.getElementById("checkMP").checked = true;
+      checkboxMP.checked = true;
     } else {
-      document.getElementById("checkMP").checked = false;
+      checkboxMP.checked = false;
     }
+
   })
+}
+
+function verificarNumeroDeTarjeta() {
+  document.getElementById("numero-de-tarjeta").addEventListener("keydown", e => {
+    // e.preventDefault();
+    // if ((e.key === "Backspace") || (e.key === "Delete")) {
+    //   document.getElementById("numero-de-tarjeta").value = "";
+    //   checkboxMP.checked = false;
+    //   if (!validacionCheckBox()) {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+    //   } else {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0");
+    //   }
+    // } else if (validacionDeCaracteres(e.key) && (e.key.length = 1)) {
+    //   document.getElementById("numero-de-tarjeta").value += `${e.key}`;
+    // } else {
+
+    // }
+    checkboxMP.checked = false;
+    botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+  })
+}
+
+function verificarCodigoDeSeguridad() {
+  document.getElementById("codigo-de-seguridad").addEventListener("keydown", e => {
+    // e.preventDefault();
+    // if ((e.key === "Backspace") || (e.key === "Delete")) {
+    //   document.getElementById("codigo-de-seguridad").value = "";
+    //   checkboxMP.checked = false;
+    //   if (!validacionCheckBox()) {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+    //   } else {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0");
+    //   }
+    // } else {
+    //   document.getElementById("codigo-de-seguridad").value += `${e.key}`;
+    // }
+    checkboxMP.checked = false;
+    botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+  })
+}
+
+function verificarVencimiento() {
+  document.getElementById("vencimiento").addEventListener("keydown", e => {
+    // e.preventDefault();
+    // if ((e.key === "Backspace") || (e.key === "Delete")) {
+    //   document.getElementById("vencimiento").value = "";
+    //   checkboxMP.checked = false;
+    //   if (!validacionCheckBox()) {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+    //   } else {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0");
+    //   }
+    // } else {
+    //   document.getElementById("vencimiento").value += `${e.key}`;
+    // }
+    checkboxMP.checked = false;
+    botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+  })
+}
+
+function verificarNumeroDeCuenta() {
+  document.getElementById("numero-de-cuenta").addEventListener("keydown", e => {
+    // e.preventDefault();
+    // if ((e.key === "Backspace") || (e.key === "Delete")) {
+    //   document.getElementById("numero-de-cuenta").value = "";
+    //   checkboxMP.checked = false;
+    //   if (!validacionCheckBox()) {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+    //   } else {
+    //     botonMedioDePago.setAttribute("class", "btn btn-link ps-0");
+    //   }
+    // } else {
+    //   document.getElementById("numero-de-cuenta").value += `${e.key}`;
+    // }
+    checkboxMP.checked = false;
+    botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+  })
+}
+
+function validacionDeCaracteres(campo) {
+  var expReg = /^[A-Za-z0-9]+$/;
+  var esValido = expReg.test(campo);
+  if (esValido) {
+    console.log("true");
+    return true;
+  } else {
+    console.log("false");
+    return false;
+  }
 }
 
 function validacionMedioDePago() {
@@ -176,28 +277,65 @@ function validacionMedioDePago() {
   VerificarDatosMedioDePago();
 }
 
-function validarFormulario() {
-  Array.from(forms).forEach(form => {
-    botonComprar.addEventListener('click', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-        showAlertError();
-      } else {
-        showAlertSucces();
-      }
+function hacerValidacion(event) {
+  if (!form.checkValidity()) {
+    event.preventDefault();
+    event.stopPropagation();
+    showAlertError();
+  }
 
-      form.classList.add('was-validated')
-    }, false)
+  if (!validacionCheckBox()) {
+    botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+  } else {
+    botonMedioDePago.setAttribute("class", "btn btn-link ps-0");
+  }
+
+  if (form.checkValidity() && verificacionCalle() && verificacionNumeroDePuerta() && verificacionEsquina()) {
+    showAlertSucces();
+  }
+
+  form.classList.add('was-validated')
+}
+
+function verificacionCalle() {
+  return (calle.value.length > 0);
+}
+
+function verificacionNumeroDePuerta() {
+  return (numeroDePuerta.value.length > 0);
+}
+
+function verificacionEsquina() {
+  return (esquina.value.length > 0);
+}
+
+function validacionCheckBox() {
+  return (checkboxMP.checked);
+}
+
+function validarFormulario() {
+  botonComprar.addEventListener('click', hacerValidacion, false);
+}
+
+function checkboxMPTiempoReal() {
+  checkboxMP.addEventListener("change", evento => {
+    if (evento.target.checked) {
+      botonMedioDePago.setAttribute("class", "btn btn-link ps-0");
+    } else {
+      botonMedioDePago.setAttribute("class", "btn btn-link ps-0 is-invalid");
+
+    }
   })
 }
 
 function showAlertError() {
-  document.getElementById("alert-danger").classList.add("show");
+  let alertDanger = document.getElementById("alert-danger");
+  alertDanger.classList.add("show");
 }
 
 function showAlertSucces() {
-  document.getElementById("alert-succes").classList.add("show");
+  let alertSucces = document.getElementById("alert-succes")
+  alertSucces.classList.add("show");
 }
 
 
@@ -215,6 +353,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
       borrarArticulo();
       validacionMedioDePago();
       validarFormulario();
+      checkboxMPTiempoReal();
+      verificarNumeroDeTarjeta();
+      verificarCodigoDeSeguridad();
+      verificarVencimiento();
+      verificarNumeroDeCuenta();
     }
   })
 
