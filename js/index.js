@@ -26,16 +26,16 @@ function goToReplace () {
 
 function closeSesion () {
     document.getElementById("cerrarSesion").addEventListener("click", function() {
-        localStorage.removeItem('email');
+        localStorage.removeItem('E-mail');
         goToReplace();
     })
     
 }
 
-if (localStorage.getItem('email') === null || localStorage.getItem('contrasenia') === null) {
+if (localStorage.getItem('E-mail') === null || localStorage.getItem('contrasenia') === null) {
     goToReplace();
 } else {
-    insertarUserName(localStorage.getItem('email'));
+    insertarUserName(localStorage.getItem('E-mail'));
     closeSesion();
 }
 

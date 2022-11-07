@@ -52,9 +52,74 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+      <h4>Perfil</h4>
+
+      <br>
+      <hr>
+
+      <form action="#" method="get" class="needs-validation" id="formulario-de-datos-del-usuario" novalidate>
+        <div class="div-de-dos-inputs">
+          <div class="row">
+            <div class="input-de-dato" id="Primer-nombre-div">
+              <label for="Primer-nombre">Primer nombre*</label>
+              <input type="text" id="Primer-nombre" name="nombrePrimero" class="form-control form-control-lg" required>
+              <div class="invalid-feedback" id="mensaje-nombre-no-introducido">
+                EL primer nombre es obligatorio!!
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-de-dato" id="Segundo-nombre-div">
+              <label for="Segundo-nombre">Segundo nombre</label>
+              <input type="text" id="Segundo-nombre" name="nombreSegundo" class="form-control form-control-lg">
+            </div>
+          </div>
+        </div>
+        <div class="div-de-dos-inputs">
+          <div class="row">
+            <div class="input-de-dato" id="Primer-apellido-div">
+              <label for="Primer-apellido">Primer apellido*</label>
+              <input type="text" id="Primer-apellido" name="apellidoPrimero" class="form-control form-control-lg" required>
+              <div class="invalid-feedback">
+                El primer apellido es obligatorio!
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-de-dato" id="Segundo-apellido-div">
+              <label for="Segundo-apellido">Segundo apellido</label>
+              <input type="text" id="Segundo-apellido" name="apellidoSegundo" class="form-control form-control-lg">
+            </div>
+          </div>
+        </div>
+        <div class="div-de-dos-inputs">
+          <div class="row">
+            <div class="input-de-dato" id="E-mail-div">
+              <label for="E-mail">E-mail*</label>
+              <input type="text" id="E-mail" name="email" class="form-control form-control-lg" required>
+              <div class="invalid-feedback">
+                El email es obligatorio!
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-de-dato" id="Numero-de-contacto-div">
+              <label for="Numero-de-contacto">Numero de contacto*</label>
+              <input type="text" id="Numero-de-contacto" name="numeroDeContacto" class="form-control form-control-lg" required>
+              <div class="invalid-feedback">
+                El numero es obligatorio!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <hr>
+
+        <button class="btn btn-primary" type="submit" id="submit-button">Guardar datos</button>
+      </form>
+
     </div>
   </main>
   <footer class="text-muted">

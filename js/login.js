@@ -40,7 +40,7 @@ function validation (pass1, email) {
 formulario.addEventListener('submit', function(evento) {
     evento.preventDefault();
     if (validation(pass1, email1)) {
-        localStorage.setItem('email', email1.value);
+        localStorage.setItem('E-mail', email1.value);
         localStorage.setItem('contrasenia', pass1.value);
         goTo();
     } else {

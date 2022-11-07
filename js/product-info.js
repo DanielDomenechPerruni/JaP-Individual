@@ -10,14 +10,6 @@ let opinion = document.getElementById("opinion");
 let tu_opinion = "";
 let score = "";
 
-if (localStorage.getItem(`comentariosNuevos${item}`) == null) {
-    comentariosIngresados = "";
-} else {
-    comentariosIngresados = localStorage.getItem(`comentariosNuevos${item}`);
-
-};
-
-
 function insertarImagenes () {
     html = "";
     producto.images.forEach(element => {
@@ -204,8 +196,16 @@ function agregarAlCarrito () {
         }
     })
   }
-  
 
+
+  
+if (localStorage.getItem(`comentariosNuevos${item}`) == null) {
+    comentariosIngresados = "";
+} else {
+    comentariosIngresados = localStorage.getItem(`comentariosNuevos${item}`);
+
+};
+  
 document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(URLProducto).then(function (resultObj) {
 
